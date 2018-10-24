@@ -6,7 +6,6 @@ const cors = require('cors');
 const app = express();
 const defaultTargets = [
   'last 2 versions',
-  'ie 11',
   'not dead'
 ];
 
