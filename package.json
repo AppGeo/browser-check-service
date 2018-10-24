@@ -1,0 +1,21 @@
+{
+  "name": "browserlist-service",
+  "version": "1.0.0",
+  "description": "Match useragent against a browser target",
+  "main": "app.js",
+  "scripts": {
+    "deploy": "gcloud app deploy",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "browserslist-useragent": "^2.0.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.4"
+  }
+}
