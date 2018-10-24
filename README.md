@@ -7,7 +7,7 @@ Test a user agent string against a list of browser targets and see if it matches
 Query Params
 
 - `targetBrowsers` - Optional. Comma separated string, e.g. `last 2 versions, not ie`.
-Defaults to `last 2 versions, ie 11`.
+Defaults to `last 2 versions, ie 11, not dead`. See https://github.com/browserslist/browserslist#full-list for options that can be used.
 - `userAgent` - Optional. The user agent string, if not specified then
 pulled from header `user-agent`.
 
