@@ -46,4 +46,16 @@ Call this via a cron job (see `cron.yaml`) to update existing browser lists.
 
 ## CRON Jobs
 
-Deploy via `gcloud app deploy cron.yaml`
+Deploy via `npm run deploy:jobs` and edit in `cron.yaml`.
+
+Updates the "cache" (stored in GCS) every 24 hours by default.
+
+## Deployment
+
+Deployed to Google AppEngine Standard environment.
+
+Run `npm run deploy:app` to deploy.
+Need to have `gcloud` cli setup before-hand.
+
+Uses Google Cloud Storage for the "caching" of browserslist results, otherwise
+dynamically installs `browserslist` and gets that list if no previous cache existed.
