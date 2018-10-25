@@ -4,6 +4,9 @@ Test a user agent string against a list of browser targets and see if it matches
 
 ## GET `/checkbrowser`
 
+Dynamically pulls the latest browser versions using a targets query and saves it
+in Google Cloud Storage for fast retrieval later on.
+
 Query Params
 
 - `targetBrowsers` - Optional. Comma separated string, e.g. `last 2 versions, not ie`.
@@ -17,3 +20,7 @@ Results (JSON)
   - `targets` - Array of targets matched against
   - `matchesTargets` - Boolean, if the tested user agent string matched the targets.
   - `userAgent` - String, the user agent that was tested against the targets.
+
+## PUT `/updatebrowsers`
+
+Call this via a cron job (see `cron.yaml`) to update existing browser lists.
