@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "deploy": "npm run deploy:app && npm ruin deploy:jobs",
+    "deploy": "npm run deploy:app && npm run deploy:jobs",
     "deploy:app": "gcloud app deploy",
     "deploy:jobs": "gcloud app deploy cron.yaml"
   },
