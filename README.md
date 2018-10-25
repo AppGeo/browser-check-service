@@ -23,7 +23,7 @@ Results (JSON)
   - `matchesTargets` - Boolean, if the tested user agent string matched the targets.
   - `userAgent` - String, the user agent that was tested against the targets.
 
-### GET `/browserslist`
+### GET `/listbrowsers`
 
 Pull the list used for a given target query from teh cache.
 
