@@ -3,7 +3,7 @@
 const express = require('express');
 const Router = require('co-router');
 const cors = require('cors');
-const { matchesUA, normalizeQuery } = require('./app/match');
+const { matchesUA } = require('./app/match');
 const fetchBrowsers = require('./app/fetch-browsers');
 const {
   find: findBrowsersFromStorage,
@@ -44,7 +44,7 @@ router.get('/checkbrowser', async (req, res) => {
   let { list: browserslist, updated } = await findBrowsersFromStorage(targetsId);
 
   if (!browserslist) {
-    browserslist = await fetchBrowsers(normalizedTargets);
+    browserslist = await fetchBrowsers(targets);
     // a bit slower for the first person doing this query
     // the cron job takes care of updating existing files
     try {
