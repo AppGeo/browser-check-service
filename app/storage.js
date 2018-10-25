@@ -18,7 +18,9 @@ exports.find = async function find(id) {
 
     return JSON.parse(contents.toString('utf8'));
   } catch(e) {
-    console.log(e);
+    if (e.code && e.code !== 404) {
+      console.log(e);
+    }
     return {};
   }
 };

@@ -3,13 +3,13 @@
 const express = require('express');
 const Router = require('co-router');
 const cors = require('cors');
-const { matchesUA, normalizeQuery } = require('./match');
-const fetchBrowsers = require('./fetch-browsers');
+const { matchesUA, normalizeQuery } = require('./app/match');
+const fetchBrowsers = require('./app/fetch-browsers');
 const {
   find: findBrowsersFromStorage,
   upload: uploadBrowsersToStorage,
   findAll: findAllTargets
-} = require('./storage');
+} = require('./app/storage');
 const app = express();
 const router = new Router();
 const defaultTargets = [
@@ -65,7 +65,7 @@ router.get('/checkbrowser', async (req, res) => {
   });
 });
 
-router.put('/updatebrowsers', async function (req, res) {
+router.get('/updatebrowsers', async function (req, res) {
   try {
     let files = await findAllTargets();
 

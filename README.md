@@ -2,7 +2,9 @@
 
 Test a user agent string against a list of browser targets and see if it matches.
 
-## GET `/checkbrowser`
+## API
+
+### GET `/checkbrowser`
 
 Dynamically pulls the latest browser versions using a targets query and saves it
 in Google Cloud Storage for fast retrieval later on.
@@ -21,6 +23,12 @@ Results (JSON)
   - `matchesTargets` - Boolean, if the tested user agent string matched the targets.
   - `userAgent` - String, the user agent that was tested against the targets.
 
-## PUT `/updatebrowsers`
+### GET `/updatebrowsers`
 
 Call this via a cron job (see `cron.yaml`) to update existing browser lists.
+
+> Note: Using `GET` because Google Cron jobs don't support setting a method.
+
+## CRON Jobs
+
+Deploy via `gcloud app deploy cron.yaml`

@@ -4,7 +4,7 @@
   "description": "Match useragent against a browser target",
   "main": "app.js",
   "scripts": {
-    "deploy": "gcloud app deploy",
+    "deploy": "gcloud app deploy && gcloud app deploy cron.yaml",
     "start": "node app.js"
   },
   "author": "",
