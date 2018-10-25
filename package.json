@@ -9,7 +9,7 @@
     "deploy:app": "gcloud app deploy",
     "deploy:jobs": "gcloud app deploy cron.yaml"
   },
-  "author": "",
+  "author": "Ilya Radchenko <iradchenko@appgeo.com>",
   "license": "ISC",
   "private": true,
   "engines": {
