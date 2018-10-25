@@ -7,7 +7,8 @@ const { matchesUA } = require('./app/match');
 const fetchBrowsers = require('./app/fetch-browsers');
 const {
   normalize: normalizeTargets,
-  toFileName: targetsToFileName
+  toFileName: targetsToFileName,
+  defaultTargets
 } = require('./app/normalize-targets');
 const {
   find: findBrowsersFromStorage,
@@ -84,8 +85,8 @@ router.get('/updatebrowsers', async function (req, res) {
 });
 
 router.get('/browserslist', async function (req, res) {
-  let targets = req.query.browserTargets;
-  let targetsId = `${targets.join(',')}.json`;
+  let targets = normalizeTargets(req.query.browserTargets);
+  let targetsId = targetsToFileName(targets);
   let result = await findBrowsersFromStorage(targetsId);
 
   if (result && result.list) {

@@ -23,6 +23,21 @@ Results (JSON)
   - `matchesTargets` - Boolean, if the tested user agent string matched the targets.
   - `userAgent` - String, the user agent that was tested against the targets.
 
+### GET `/browserslist`
+
+Pull the list used for a given target query from teh cache.
+
+Query Params
+
+- `targetBrowsers` - Optional. Comma separated string, e.g. `last 2 versions, not ie`.
+Defaults to `last 2 versions, not dead`. See https://github.com/browserslist/browserslist#full-list for options that can be used.
+
+Results (JSON)
+
+- Object
+  - `list` - Array of browsers with their versions as strings
+  - `updated` - String, date when list was updated
+
 ### GET `/updatebrowsers`
 
 Call this via a cron job (see `cron.yaml`) to update existing browser lists.

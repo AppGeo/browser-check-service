@@ -5,6 +5,8 @@ const defaultTargets = [
   'not dead'
 ];
 
+exports.defaultTargets = defaultTargets;
+
 exports.normalize = function (targets) {
   if (targets) {
     if (typeof targets === 'string') {

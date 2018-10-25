@@ -1,6 +1,6 @@
 {
   "name": "browserlist-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Match useragent against a browser target",
   "main": "app.js",
   "scripts": {
