@@ -1,6 +1,6 @@
 {
   "name": "browser-check-service",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Match useragent against a browser target",
   "main": "app.js",
   "scripts": {
