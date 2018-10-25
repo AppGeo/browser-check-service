@@ -6,16 +6,16 @@ const cors = require('cors');
 const { matchesUA } = require('./app/match');
 const fetchBrowsers = require('./app/fetch-browsers');
 const {
+  normalize: normalizeTargets,
+  toFileName: targetsToFileName
+} = require('./app/normalize-targets');
+const {
   find: findBrowsersFromStorage,
   upload: uploadBrowsersToStorage,
   findAll: findAllTargets
 } = require('./app/storage');
 const app = express();
 const router = new Router();
-const defaultTargets = [
-  'last 2 versions',
-  'not dead'
-];
 
 app.use(cors());
 
@@ -30,17 +30,9 @@ router.get('/checkbrowser', async (req, res) => {
     return;
   }
 
-  if (targets) {
-    if (typeof targets === 'string') {
-      targets = targets.split(',')
-        .map(item => item.trim())
-        .filter(item => !!item);
-    }
-  } else {
-    targets = defaultTargets;
-  }
+  targets = normalizeTargets(targets);
 
-  let targetsId = `${targets.join(',')}.json`;
+  let targetsId = targetsToFileName(targets);
   let { list: browserslist, updated } = await findBrowsersFromStorage(targetsId);
 
   if (!browserslist) {
@@ -77,7 +69,7 @@ router.get('/updatebrowsers', async function (req, res) {
     for (let file of files) {
       let decodedId = decodeURIComponent(file.id);
       let targets = decodedId.replace('.json', '');
-      let normalizedTargets = targets.split(',');
+      let normalizedTargets = normalizeTargets(targets);
       let browserslist = await fetchBrowsers(normalizedTargets);
 
       await uploadBrowsersToStorage(decodedId, browserslist);
@@ -89,6 +81,18 @@ router.get('/updatebrowsers', async function (req, res) {
     console.log('Error updating files');
     res.status(500).send('Error updating files: ' + e);
   }
+});
+
+router.get('/browserslist', async function (req, res) {
+  let targets = req.query.browserTargets;
+  let targetsId = `${targets.join(',')}.json`;
+  let result = await findBrowsersFromStorage(targetsId);
+
+  if (result && result.list) {
+    return res.json(result);
+  }
+
+  res.status(404).json({ error: 'Not found' });
 });
 
 app.use('/', router);
