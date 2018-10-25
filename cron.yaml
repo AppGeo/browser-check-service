@@ -1,5 +1,5 @@
 cron:
 - description: 'daily browser update job'
   url: /updatebrowsers
-  #schedule: every 24 hours
-  schedule: every 1 mins
+  schedule: every 24 hours
+  #schedule: every 1 mins
