@@ -40,15 +40,20 @@ router.get('/checkbrowser', async (req, res) => {
     targets = defaultTargets;
   }
 
-  let normalizedTargets = targets.map(normalizeQuery);
-  let targetsId = `${normalizedTargets.join(',')}.json`;
+  let targetsId = `${targets.join(',')}.json`;
   let { list: browserslist, updated } = await findBrowsersFromStorage(targetsId);
 
   if (!browserslist) {
     browserslist = await fetchBrowsers(normalizedTargets);
     // a bit slower for the first person doing this query
     // the cron job takes care of updating existing files
-    await uploadBrowsersToStorage(targetsId, browserslist);
+    try {
+      await uploadBrowsersToStorage(targetsId, browserslist);
+    } catch(error) {
+      console.log(error);
+      // don't do anything for now, we don't want it to prevent the user
+      // from getting their result if it fails
+    }
   }
 
   let matchesTargets = matchesUA(userAgent, {
@@ -72,7 +77,7 @@ router.get('/updatebrowsers', async function (req, res) {
     for (let file of files) {
       let decodedId = decodeURIComponent(file.id);
       let targets = decodedId.replace('.json', '');
-      let normalizedTargets = targets.split(',').map(normalizeQuery);
+      let normalizedTargets = targets.split(',');
       let browserslist = await fetchBrowsers(normalizedTargets);
 
       await uploadBrowsersToStorage(decodedId, browserslist);
