@@ -1,4 +1,4 @@
-# browserlist-service
+# browser-check-service
 
 Test a user agent string against a list of browser targets and see if it matches.
 
